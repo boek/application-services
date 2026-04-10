@@ -206,6 +206,9 @@ interface PlacesConnection {
 
     [Throws=PlacesApiError]
     HistoryMigrationResult places_history_import_from_ios(string db_path, i64 last_sync_timestamp);
+
+    [Throws=PlacesApiError]
+    BookmarksMigrationResult bookmarks_import_from_html(string html_path, Guid import_root_guid);
 };
 
 
@@ -355,6 +358,13 @@ dictionary HistoryMigrationResult {
     u32 num_succeeded;
     u32 num_failed;
     u64 total_duration;
+};
+
+dictionary BookmarksMigrationResult {
+    u64 total;
+    u64 succeeded;
+    u64 failed;
+    u64 duration_ms;
 };
 
 

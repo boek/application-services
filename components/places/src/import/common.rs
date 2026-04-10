@@ -171,6 +171,14 @@ pub struct HistoryMigrationResult {
     pub total_duration: u64,
 }
 
+#[derive(Serialize, PartialEq, Eq, Debug, Clone, Default)]
+pub struct BookmarksMigrationResult {
+    pub total: u64,
+    pub succeeded: u64,
+    pub failed: u64,
+    pub duration_ms: u64,
+}
+
 pub fn define_history_migration_functions(c: &Connection) -> Result<()> {
     use rusqlite::functions::FunctionFlags;
     c.create_scalar_function(

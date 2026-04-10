@@ -31,6 +31,7 @@ error-support = { path = "../support/error" }
 sync-guid = { path = "../support/guid", features = ["rusqlite_support", "random"]}
 thiserror = "2"
 anyhow = "1.0"
+scraper = "0.22"
 uniffi = { version = "0.31" }
 
 [dev-dependencies]

@@ -8,8 +8,8 @@ use crate::api::matcher::{self, search_frecent, SearchParams};
 pub use crate::api::places_api::places_api_new;
 pub use crate::error::{warn, Result};
 pub use crate::error::{ApiResult, PlacesApiError};
-pub use crate::import::common::HistoryMigrationResult;
-use crate::import::import_ios_history;
+pub use crate::import::common::{BookmarksMigrationResult, HistoryMigrationResult};
+use crate::import::{import_bookmarks_from_html, import_ios_history};
 use crate::storage;
 use crate::storage::bookmarks;
 pub use crate::storage::bookmarks::BookmarkPosition;
@@ -533,6 +533,15 @@ impl PlacesConnection {
         last_sync_timestamp: i64,
     ) -> ApiResult<HistoryMigrationResult> {
         self.with_conn(|conn| import_ios_history(conn, &db_path, last_sync_timestamp))
+    }
+
+    #[handle_error(crate::Error)]
+    pub fn bookmarks_import_from_html(
+        &self,
+        html_path: String,
+        import_root_guid: Guid,
+    ) -> ApiResult<BookmarksMigrationResult> {
+        self.with_conn(|conn| import_bookmarks_from_html(conn, &html_path, &import_root_guid))
     }
 }
 
